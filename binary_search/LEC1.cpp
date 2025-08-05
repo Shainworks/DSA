@@ -180,5 +180,23 @@ bool search2(vector<int>& arr, int target) {    //To search for an element in a 
         }
         return false;
     }
+    int findMin(vector<int>& nums) {        //To find the minimum element in a rotated sorted array
+        //O(logn) solution
+        int n = nums.size();
+        int mini = INT_MAX;
+        int low = 0, high = n-1;
+        while(low<=high){
+            int mid = (low+high)/2;
+            if(nums[low]<=nums[mid]){    //This part is sorted hence the lowest would be nums[low] itself
+                mini = min(mini,nums[low]);
+                low = mid+1;
+            }
+            else{//This part is sorted hence the lowest would be nums[mid] itself
+                mini = min(mini,nums[mid]);
+                high = mid-1;
+            }
+        }
+        return mini;
+    }
 int main(){
 }
