@@ -237,5 +237,52 @@ bool search2(vector<int>& arr, int target) {    //To search for an element in a 
         }
         return index;
     }
+    int singleNonDuplicate(vector<int>& arr) {      //To find the single non-duplicate element in a sorted array where every other element appears twice
+        //O(n) solution  Brute force solution
+        int n = arr.size();
+        if(n == 1) return arr[0];   //If there is only one element then return that itself
+        for(int i=0;i<n;i++){
+            if(i==0){       //For the first element in the array
+                if(arr[i]!=arr[i+1]){
+                    return arr[i];
+                }
+            }
+            else if(i == n-1){      //For the last element in the array
+                if(arr[i]!=arr[i-1]){
+                    return arr[i];
+                }
+            }
+            else if(arr[i]!=arr[i-1] && arr[i]!=arr[i+1]){      //For Elements existing in the middle
+                return arr[i];
+            }
+        }
+        return 0;
+    }
+    int singleNonDuplicate(vector<int>& nums) { // To find the single non-duplicate element in a sorted array where every other element appears twice using binary search
+        //O(logn) solution Optimal solution
+        int n = nums.size();
+        //Edge cases to handle if there's only one element
+        //For zero index 
+        //For last index
+        if(n==1) return nums[0];
+        if(nums[0] != nums[1]) return nums[0];
+        if(nums[n-1]!=nums[n-2]) return nums[n-1];
+        int low = 1,high = n-2;
+        while(low<=high){
+            int mid = (low+high)/2;
+            if(nums[mid-1]!=nums[mid] && nums[mid]!=nums[mid+1]){
+                return nums[mid];        //The unique element is found
+            }
+            //Eleminating the left half
+            if((mid%2==1) && nums[mid-1]==nums[mid] || (mid%2==0) && nums[mid]==nums[mid+1]){
+                low = mid+1;
+            }
+            //Eleminating the right half
+            else{
+                high = mid-1;
+            }
+        }
+        return -1;
+    }
 int main(){
 }
