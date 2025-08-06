@@ -284,5 +284,51 @@ bool search2(vector<int>& arr, int target) {    //To search for an element in a 
         }
         return -1;
     }
+    int findPeakElement(vector<int>& nums) {        //To find a peak element in an array where a peak element is defined as an element that is greater than its neighbors
+        //O(n) solution Brute force solution
+        //A peak element is an element that is greater than its neighbors
+        //For the first and last elements, we only need to check one neighbor to avoid out of bounds access
+    int n = nums.size();
+    if (n == 1) return 0;
+
+    for (int i = 0; i < n; i++) {
+        if (i == 0) {
+            if (nums[i] > nums[i + 1]) return i;
+        }
+        else if (i == n - 1) {
+            if (nums[i] > nums[i - 1]) return i;
+        }
+        else if (nums[i] > nums[i - 1] && nums[i] > nums[i + 1]) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+ int findPeakElement(vector<int>& nums) {       //To find a peak element in an array using binary search
+        //O(logn) solution Optimal solution
+        int n = nums.size();
+        if (n == 1) return 0;
+        int low = 0;
+        int high = n-1;
+        while(low<=high){
+            int mid = (low+high)/2;
+            //Handling edge cases for the first and last elements
+            if (nums[low] > nums[low + 1]) return low;
+            else if(nums[high]>nums[high-1]) return high;
+            //Checking if mid is a peak element
+            else if(nums[mid]>nums[mid+1] && nums[mid-1]<nums[mid]){
+                return mid;
+            }
+            else if(nums[mid-1]<nums[mid]){     //If the left neighbor is smaller than mid, then the peak element must be on the right side
+                low = mid+1;
+            }
+            else    //If the right neighbor is smaller than mid, then the peak element must be on the left side
+            {
+                high = mid-1;
+            }
+        }
+        return -1;
+    }
 int main(){
 }
