@@ -198,5 +198,44 @@ bool search2(vector<int>& arr, int target) {    //To search for an element in a 
         }
         return mini;
     }
+    int findKRotation(vector<int> &arr) {       //To find the number of rotations in a rotated sorted array
+        int n = arr.size();
+        int mini = INT_MAX;
+        int index = -1;
+        for(int i=0;i<n;i++){
+            if(arr[i]<mini){        //Finding the minimum element in the array which will be the point of rotation
+                mini = arr[i];
+                index = i;
+            }
+        }
+        return index;
+    }
+    int findKRotation(vector<int> &arr) {       //To find the number of rotations in a rotated sorted array using binary search
+        //O(logn) solution
+        int n = arr.size();
+        int low = 0, high = n-1;
+        int index = -1;
+        int mini = INT_MAX;
+        while(low<=high){
+            int mid = (low+high)/2;
+            //If left part is sorted
+            if(arr[low]<=arr[mid]){
+                if(arr[low]<mini){      
+                    mini = arr[low];
+                    index = low;
+                }
+                low = mid+1;
+            }
+            //If right part is sorted
+            else{
+                if(arr[mid]<mini){
+                    mini = arr[mid];
+                    index = mid;
+                }
+                high = mid-1;
+            }
+        }
+        return index;
+    }
 int main(){
 }
