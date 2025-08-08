@@ -330,5 +330,21 @@ bool search2(vector<int>& arr, int target) {    //To search for an element in a 
         }
         return -1;
     }
+    long long floorSqrt(long long n)  {     //To find the floor of the square root of a number using binary search
+        //O(logn) solution  OPtimal solution
+      int low = 1,high = n;
+      long long ans;
+      while(low<=high){
+        long long mid = (low+high)/2;
+        if((mid*mid) <= n){     //If mid squared is less than or equal to n, then mid is a possible answer
+            ans = mid;
+            low = mid + 1;
+        }
+        else{
+            high = mid -1;
+        }
+      }
+      return ans;
+    }
 int main(){
 }
