@@ -346,5 +346,51 @@ bool search2(vector<int>& arr, int target) {    //To search for an element in a 
       }
       return ans;
     }
+     int minEatingSpeed(vector<int>& piles, int h) {    //To find the minimum eating speed to finish all the piles of bananas in h hours
+        //O(nlog(maxele)) solution
+        int n = piles.size();
+        for(int i=1;i<=maxele(piles);i++){
+            int reqtime = calhours(piles,i);
+            if(reqtime <= h){       //If the required time is less than or equal to h, then i is a possible answer
+                //We need to find the minimum eating speed, so we return i
+                return i;
+            }
+        }
+        return 0;
+    }
+    int maxele(vector<int> arr){        //To find the maximum element in an array
+        int n = arr.size();
+        int MAXI = INT_MIN;
+        for(int i=0;i<n;i++){
+            MAXI = max(MAXI,arr[i]);
+        }
+        return MAXI;
+    }
+    int calhours(vector<int> arr, int hourly){      //To calculate the total hours required to finish all the piles of bananas at a given eating speed
+        long long totalhrs = 0;
+        int n = arr.size();
+        for(int i=0;i<n;i++){
+            totalhrs += ceil((double)arr[i]/hourly);        //we use double to avoid integer division and use ceil to round up the hours required for each pile
+        }
+        return totalhrs;
+    }
+    int minEatingSpeed(vector<int>& piles, int h) {     //To find the minimum eating speed to finish all the piles of bananas in h hours using binary search
+        //O(nlog(maxele)) solution
+        int low = 1;
+        int high = maxele(piles);
+        int ans = INT_MAX;
+        while(low<=high){
+            long long mid = (low+high)/2;
+            long long totalhrs = calhours(piles,mid);
+            if(totalhrs <= h){
+                ans = mid;
+                high = mid -1;
+            }
+            else {
+                low = mid+1;
+            }
+        }
+        return ans;
+    }
 int main(){
 }
