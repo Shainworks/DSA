@@ -452,5 +452,48 @@ bool search2(vector<int>& arr, int target) {    //To search for an element in a 
         }
         return maxi;
     }
+    int smallestDivisor(vector<int>& nums, long long threshold) {   //To find the smallest divisor such that the sum of the quotients of each element divided by the divisor is less than or equal to the threshold
+        //We can use binary search to find the smallest divisor
+        //The minimum divisor can be 1 and the maximum divisor can be the maximum element in the array
+        //We will check for each divisor if it satisfies the condition and return the smallest one
+        //Brute force solution would be to check for each divisor from 1 to maxele(nums) and check if it satisfies the condition
+     for(int i=1;i<=maxele(nums);i++){
+        if(check(nums,i,threshold)==true){
+            return i;
+        }
+     }   
+     return -1;
+    }
+    bool check(vector<int> arr,int ele,long long threshold){        //To check if a divisor satisfies the condition
+        //O(n) solution
+        long long flag=0;
+        for(int i=0;i<arr.size();i++){
+            flag += ceil((double)arr[i]/(double)ele);
+        }
+        if(flag<=threshold){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+     int smallestDivisor(vector<int>& nums, long long threshold) {      //To find the smallest divisor such that the sum of the quotients of each element divided by the divisor is less than or equal to the threshold using binary search
+        //O(nlog(maxele)) solution optimal solution
+     //We can use binary search to find the smallest divisor
+     int low = 1;
+     int high = maxele(nums);
+     int ans =1;
+     while(low<=high){
+        int mid = (low+high)/2;
+        if(check(nums,mid,threshold)==true){
+            ans = mid;
+            high = mid-1;
+        }
+        else{
+            low=mid+1;
+        }
+     }
+     return ans;
+    }
 int main(){
 }
