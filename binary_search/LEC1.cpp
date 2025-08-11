@@ -436,5 +436,21 @@ bool search2(vector<int>& arr, int target) {    //To search for an element in a 
            return false;
         }
     }
+    int minele(vector<int> arr){
+        int n = arr.size();
+        int mini = INT_MAX;
+        for(int i=0;i<n;i++){
+            mini = min(mini,arr[i]);
+        }
+        return mini;
+    }
+    int maxele(vector<int> arr){
+        int n = arr.size();
+        int maxi = INT_MIN;
+        for(int i=0;i<n;i++){
+            maxi = max(maxi,arr[i]);
+        }
+        return maxi;
+    }
 int main(){
 }
