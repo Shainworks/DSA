@@ -392,5 +392,49 @@ bool search2(vector<int>& arr, int target) {    //To search for an element in a 
         }
         return ans;
     }
+    int minDays(vector<int>& bloomDay, long long m, long long k) {  //To find the minimum number of days required to make m bouquets with k flowers each
+        //O(nlog(maxele)) solution
+        int low = minele(bloomDay);
+        int high = maxele(bloomDay);
+        int ans = 1;
+        while(low<=high){
+            int mid = (low+high)/2;
+            if(possible(bloomDay,mid,m,k)==true){       //If it is possible to make m bouquets with k flowers each in mid days
+                ans = mid;
+                high = mid-1;
+            }
+            else{
+                low = mid+1;
+            }
+        }
+        if(m*k>bloomDay.size()){
+            return -1;
+        }
+        else {
+            return ans;
+        }
+    }
+    bool possible(vector<int> arr,int days,int m,int k){        //To check if it is possible to make m bouquets with k flowers each in given days
+        //O(n) solution
+        int boquet = 0;
+        int count = 0;
+        int n = arr.size();
+        for(int i=0;i<n;i++){
+            if(arr[i]<=days){
+                count++;
+            }
+            else{
+                boquet += (count/k);
+                count = 0;
+            }
+        }
+        boquet += (count/k);
+        if(boquet>=m){
+            return true;
+        }
+        else{
+           return false;
+        }
+    }
 int main(){
 }
