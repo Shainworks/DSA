@@ -495,5 +495,58 @@ bool search2(vector<int>& arr, int target) {    //To search for an element in a 
      }
      return ans;
     }
+    int shipWithinDays(vector<int>& weights, int days) {        //To find the minimum capacity of the ship to ship all the weights within given days
+        //O(nlog(sumele)) solution
+        //brute force solution would be to check for each capacity from maxele(weights) to sumele(weights) and check if it satisfies the condition
+        //The minimum capacity can be the maximum element in the weights array and the maximum capacity can be the sum of all the weights
+        //We will check for each capacity if it satisfies the condition and return the smallest one
+        for(int i=maxele(weights);i<=sumele(weights);i++){
+            int daysrequired = check(weights,i);
+            if(daysrequired<=days){
+                return i;
+            }
+        }
+        return -1;
+    }
+    int check(vector<int> arr,int capacity){        //To check how many days are required to ship all the weights with given capacity
+        //O(n) solution
+        int days = 1;
+        int load = 0;
+        int n = arr.size();
+        for(int i=0;i<n;i++){
+            if(load+arr[i]>capacity){
+                days = days +1;
+                load = arr[i];
+            }
+            else{
+                load += arr[i];
+            }
+        }
+        return days;
+    }
+    int sumele(vector<int> arr){
+        int n = arr.size();
+        int sum = 0;
+        for(int i=0;i<n;i++){
+            sum += arr[i];
+        }
+        return sum;
+    }
+    int shipWithinDays(vector<int>& weights, int days) {    //To find the minimum capacity of the ship to ship all the weights within given days using binary search
+        int low = maxele(weights);
+        int high = sumele(weights);
+        while(low<=high){//We will use binary search to find the minimum capacity
+            //The minimum capacity can be the maximum element in the weights array and the maximum capacity can be the sum of all the weights
+            //We will check for each capacity if it satisfies the condition and return the smallest one
+            int mid = (low+high)/2;
+            if(check(weights,mid)<=days){
+               high = mid-1;
+            }
+            else{
+                low = mid+1;
+            }
+        }
+        return low;
+    }
 int main(){
 }
