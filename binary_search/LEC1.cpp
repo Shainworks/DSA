@@ -599,5 +599,72 @@ int findPages(vector<int>& arr, int n, int m) {
     }
     return low;
 }
+ double minMaxDist(vector<int> &stations, int k) {      //To minimize the maximum distance between adjacent gas stations by adding k new stations
+        int n = stations.size();        //This code wont work on leetcode as it will show time limit exceeded
+        vector<int> howmany(n-1,0);     //The initial values of the array will be zero
+        for(int i = 1;i<=k;i++){
+            long double maxval = -1;
+            int maxfind = -1;
+            for(int i=0;i<=n;i++){
+                long double diff = stations[i+1]-stations[i];
+                long double sectionlength = diff/(howmany[i]+1);
+                if(sectionlength>maxval){
+                    maxval = sectionlength;
+                    maxfind = i;
+                }
+            }
+        howmany[maxfind]++;
+        }
+        long double maxans = -1;
+        for(int i=0;i<=n;i++){
+            long double sectionlength = (stations[i+1]=stations[i])/(howmany[i]+1);
+            maxans = max(maxans,sectionlength);
+        }
+        return maxans;
+    }
+     double findMedianSortedArrays(vector<int>& a, vector<int>& b) {        //To find the median of two sorted arrays
+        int n1 = a.size();
+        int n2 = b.size();
+        int n = n1+n2;
+        int cnt = 0;
+        int i = 0;
+        int j =0;
+        int index2 = n/2;
+        int index1 = index2 - 1;
+        int ind1ele = -1;
+        int ind2ele = -1;
+        while(i < n1 && j < n2){
+            if(a[i]<b[j]){
+                if(cnt == index1) ind1ele = a[i];
+                if(cnt == index2) ind2ele = a[i];
+                cnt++;
+                i++;
+            }
+            else{
+                if(cnt == index1) ind1ele = b[j];
+                if(cnt == index2) ind2ele = b[j];
+                cnt++;
+                j++;
+            }
+        }
+        while(i<n1){
+            if(cnt == index1) ind1ele = a[i];
+            if(cnt == index2) ind2ele = a[i];
+            cnt++;
+            i++;
+        }
+        while(j<n2){
+            if(cnt == index1) ind1ele = b[j];
+            if(cnt == index2) ind2ele = b[j];
+            cnt++;
+            j++;
+        }
+        if(n%2 == 1){
+            return ind2ele;
+        }
+        else{
+            return ((double)(double) (ind1ele+ind2ele))/2.0;
+        }
+    }
 int main(){
 }
