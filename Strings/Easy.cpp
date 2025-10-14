@@ -52,6 +52,36 @@ string removeOuterParentheses(string s) { //To remove the outermost parentheses 
         }
         return ans;
     }
+    string longestCommonPrefix(vector<string>& strs) {      //To find the longest common prefix among a list of strings
+        //O(nlogn) solution
+        if(strs.empty()){
+            return "";
+        }
+        sort(strs.begin(),strs.end());
+        string first = strs[0];
+        string last = strs[strs.size()-1];
+        string ans = "";
+        int minlength = min(first.size(),last.size());      //Finding the minimum length between the first and last strings to avoid out of bound errors
+        for(int i=0;i<minlength;i++){
+            if(first[i] != last[i])
+            break;
+            ans += first[i];
+        }
+        return ans;
+    }
+     bool isIsomorphic(string s, string t) {    //To find whether the two given strings are isomorphic or not
+        int m1[256] = {0};
+        int m2[256] = {0};
+        int n = s.size();
+        for(int i=0;i<n;i++){
+            if(m1[s[i]]!=m2[t[i]]){     //Checks the occurences of the characters
+                return false;
+            }
+            m1[s[i]] = i+1;
+            m2[t[i]] = i+1;
+        }
+        return true;
+    }
 int main(){
    return 0;
 }
