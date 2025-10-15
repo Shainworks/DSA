@@ -82,6 +82,16 @@ string removeOuterParentheses(string s) { //To remove the outermost parentheses 
         }
         return true;
     }
+    bool rotateString(string s, string goal) {      //TO find whether the string s can be rotated to form the string goal
+        //O(n) solution
+        int n = s.length();
+        for(int i=0;i<n;i++){
+            string rotated = s.substr(i) + s.substr(0,i);       //Rotating the string by i positions
+            if(rotated == goal)
+            return true;
+        }
+        return false;
+    }
 int main(){
    return 0;
 }
