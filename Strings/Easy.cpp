@@ -92,6 +92,26 @@ string removeOuterParentheses(string s) { //To remove the outermost parentheses 
         }
         return false;
     }
+     string frequencySort(string s) {       //To sort the characters in a string based on their frequency in descending order
+        //O(nlogn) solution
+        map<char,int> hashmap;
+        vector<pair<char,int>> hashvec;
+        for(int i=0;i<s.size();i++){
+            hashmap[s[i]]++;
+        }
+        for(auto [ch,cnt]:hashmap){
+            hashvec.push_back({ch,cnt});
+        }
+        auto comp = [&](pair<char,int> &a,pair<char,int> &b){       //Custom comparator to sort the vector based on the frequency of characters
+            return a.second>b.second;
+        };
+        sort(hashvec.begin(),hashvec.end(),comp);
+        string ans = "";
+        for(auto [ch,cnt]:hashvec){
+            ans.append(cnt,ch);     //Appending the character cnt number of times to the answer string
+        }
+        return ans;
+    }
 int main(){
    return 0;
 }
