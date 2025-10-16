@@ -112,6 +112,22 @@ string removeOuterParentheses(string s) { //To remove the outermost parentheses 
         }
         return ans;
     }
+    int maxDepth(string s) {        //To find the maximum depth of nested parentheses in a valid parentheses string
+        //O(n) solution
+        int n = s.size();
+        int count = 0;
+        int Maxdepth = 0;
+        for(int i=0;i<n;i++){
+            if(s[i]=='('){
+                count++;
+                Maxdepth = max(Maxdepth,count);
+            }
+            else if(s[i]==')'){
+                count--;
+            }
+        }
+        return Maxdepth;
+    }
 int main(){
    return 0;
 }
