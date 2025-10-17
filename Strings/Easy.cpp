@@ -181,6 +181,49 @@ string removeOuterParentheses(string s) { //To remove the outermost parentheses 
         }
         return count;
     }
+    int myAtoi(string s) {      //To convert a string to a 32-bit signed integer
+        //O(n) solution
+        int n = s.size();
+        long ans = 0;
+        int sign = 1;
+        bool started = false;       //To check if the number has started
+        for(int i=0;i<n;i++){
+            if(!started && s[i]==' '){
+                
+                continue;
+            }
+            else if(!started && s[i]=='-'){
+                if(s[i+1]=='+' || s[i+1]=='-'){
+                    return 0;
+                }
+                sign = -1;
+            }
+            else if(!started && s[i]=='+'){
+                if(s[i+1]=='-' || s[i+1]=='+'){
+                    return 0;
+                }
+                if(s[i+1] == ' '){
+                    return 0;
+                }
+                sign = +1;
+            }
+            else if(isdigit(s[i])){
+            started = true;
+            ans = ans*10 + (s[i] - '0');
+            if(sign*ans>INT_MAX){
+                return INT_MAX;
+            }
+            if(sign*ans<INT_MIN){
+                return INT_MIN;
+            }
+            }
+            else{
+                if(started) break;      //If the number has started and we encounter a non-digit character, we break the loop
+                else return 0;
+            }
+        }
+        return (int)(sign * ans);
+    }
 int main(){
    return 0;
 }
