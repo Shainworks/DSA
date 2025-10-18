@@ -224,6 +224,35 @@ string removeOuterParentheses(string s) { //To remove the outermost parentheses 
         }
         return (int)(sign * ans);
     }
+    string longestPalindrome(string s) {        //To find the longest palindromic substring in a given string
+        //O(n^2) solution
+        int n = s.size();
+        int start = 0;
+        int maxlen = 1;
+        for(int i=0;i<n;i++){
+            int l = i;
+            int r = i+1;
+            while(l>=0 && r<n && s[l]==s[r]){   //Checking for even length palindromes
+                if((r-l)+1 > maxlen){
+                    maxlen = (r-l)+1;
+                    start = l;
+                }
+                l = l-1;
+                r = r+1;
+            }
+            l = i-1;
+            r = i+1;
+            while(l>=0 && r<n && s[l]==s[r]){       //Checking for odd length palindromes
+                if((r-l)+1 > maxlen){
+                    maxlen = (r-l)+1;
+                    start = l;
+                }
+                l = l-1;
+                r = r+1;
+            }
+        }
+        return s.substr(start,maxlen);      //Returning the longest palindromic substring
+    }
 int main(){
    return 0;
 }
