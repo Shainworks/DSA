@@ -271,6 +271,24 @@ string removeOuterParentheses(string s) { //To remove the outermost parentheses 
         }
         return sum;
     }
+    int countSubstr(string& s, int k) {     //To count the number of substrings with exactly k distinct characters
+        // code here
+        int n = s.size();       
+        int count =0;
+        for(int i=0;i<n;i++){
+            unordered_map<char,int> freq;
+            for(int j=i;j<n;j++){
+                freq[s[j]]++;
+                if(freq.size()>k){
+                    break;
+                }
+                if(freq.size()==k){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
 int main(){
    return 0;
 }
