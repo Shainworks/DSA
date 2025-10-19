@@ -253,6 +253,24 @@ string removeOuterParentheses(string s) { //To remove the outermost parentheses 
         }
         return s.substr(start,maxlen);      //Returning the longest palindromic substring
     }
+    int beautySum(string s) {       //To find the sum of beauty of all substrings of a given string
+        int n = s.size();
+        int sum = 0;
+        for(int i=0;i<n;i++){
+            unordered_map<char,int> freq;       //To store the frequency of characters in the substring
+            for(int j=i;j<n;j++){
+                freq[s[j]]++;       //Incrementing the frequency of the character
+                int maxi = INT_MIN;
+                int mini = INT_MAX;
+                for(auto it:freq){
+                    mini = min(mini,it.second);
+                    maxi = max(maxi,it.second);
+                }
+                sum = sum + (maxi-mini);        //Adding the beauty of the substring to the sum
+            }
+        }
+        return sum;
+    }
 int main(){
    return 0;
 }
