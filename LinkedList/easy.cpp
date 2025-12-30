@@ -27,5 +27,19 @@ void deleteNode(ListNode* node) {       //To delete a node in a singly linked li
         }
         return head;
     }
+    Node *reverse(Node *head) {     //Reverse a doubly linked list without using stack  
+        if(head == NULL || head->next == NULL){
+            return head;
+        }
+        Node *current = head;
+        Node * last = NULL;
+        while(current != NULL){
+            last = current->prev;       //Storing previous pointer
+            current->prev = current->next;      //Swapping prev and next pointers
+            current->next = last;       //Swapping prev and next pointers
+            current = current->prev;        //Moving to next node
+        }
+        return last->prev;      //New head of reversed list
+    }
 int main(){
 }
