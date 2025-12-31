@@ -74,9 +74,9 @@ void deleteNode(ListNode* node) {       //To delete a node in a singly linked li
         if(head->next == NULL){
             return head;
         }
-        ListNode *slow = head;
-        ListNode *fast = head;
-        while(fast!=NULL && fast->next!=NULL){
+        ListNode *slow = head;      //Slow pointer moves one step
+        ListNode *fast = head;      //Fast pointer moves two steps
+        while(fast!=NULL && fast->next!=NULL){      //When fast reaches end, slow will be at middle
             slow = slow->next;
             fast = fast->next->next;
         }
