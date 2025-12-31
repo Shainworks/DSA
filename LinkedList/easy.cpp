@@ -41,5 +41,46 @@ void deleteNode(ListNode* node) {       //To delete a node in a singly linked li
         }
         return last->prev;      //New head of reversed list
     }
+    ListNode* middleNode(ListNode* head) {      //Find middle node of singly linked list
+        ListNode *temp = head;
+        int count = 0;
+        if(head == NULL){
+            return NULL;
+        }
+        if(head->next == NULL){
+            return head;
+        }   
+        while(temp!= NULL){     //Counting total nodes
+            count++;
+            temp = temp->next;
+        }
+        int midnode = (count/2) + 1;        //Finding position of middle node
+        temp = head;
+        while(temp!=NULL){
+            midnode = midnode-1;        //Decrementing midnode to reach middle
+            if(midnode == 0){
+                return temp;
+            }
+            temp = temp->next;
+        }
+        return NULL;
+    }
+    ListNode* middleNode(ListNode* head) {      //Find middle node of singly linked list using two pointer approach
+        // ListNode *temp = head;
+        // int count = 0;
+        if(head == NULL){
+            return NULL;
+        }
+        if(head->next == NULL){
+            return head;
+        }
+        ListNode *slow = head;
+        ListNode *fast = head;
+        while(fast!=NULL && fast->next!=NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return slow;
+    }
 int main(){
 }
