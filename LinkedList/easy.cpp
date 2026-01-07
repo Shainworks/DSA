@@ -82,5 +82,26 @@ void deleteNode(ListNode* node) {       //To delete a node in a singly linked li
         }
         return slow;
     }
+     ListNode* reverseList(ListNode* head) {//      Reverse a singly linked list
+     ListNode *temp = head;
+     ListNode *prev = NULL; 
+     while(temp!=NULL){
+        ListNode *front = temp->next;       //Storing next node
+        temp->next = prev;
+        prev = temp;
+        temp = front;
+     }
+     return prev;
+    }
+       ListNode* reverseList(ListNode* head) {      //Reverse a singly linked list using recursion
+     if(head == NULL || head->next == NULL){        //Base case
+        return head;
+     }
+     ListNode *newhead = reverseList(head->next);       //Reversing rest of the list
+     ListNode *front = head->next;      //Storing next node
+     front->next = head;    //Reversing the link
+     head->next = NULL;     //Setting next of current node to NULL
+     return newhead;        //Returning new head of reversed list
+    }
 int main(){
 }
