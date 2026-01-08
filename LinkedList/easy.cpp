@@ -142,5 +142,23 @@ void deleteNode(ListNode* node) {       //To delete a node in a singly linked li
         }
         return NULL;
     }
+    int lengthOfLoop(Node *head) {      //Find length of loop in a linked list using Floyd's Cycle-Finding Algorithm
+        Node *slow = head;
+        Node *fast = head;
+        while(fast!=NULL && fast->next!=NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+            if(slow == fast){       //Cycle detected
+                int length = 1;
+                Node *temp = slow->next;        //Counting nodes in loop
+                while(temp!=slow){
+                    length++;
+                    temp = temp->next;
+                }
+                return length;
+            }
+        }
+        return 0;
+    }
 int main(){
 }
