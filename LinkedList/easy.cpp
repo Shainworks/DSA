@@ -103,5 +103,44 @@ void deleteNode(ListNode* node) {       //To delete a node in a singly linked li
      head->next = NULL;     //Setting next of current node to NULL
      return newhead;        //Returning new head of reversed list
     }
+    bool hasCycle(ListNode *head) {     //Detect cycle in a linked list using hashing
+        unordered_set<ListNode*> visited;
+        ListNode *temp = head;
+        while(temp!=NULL){
+            if(visited.find(temp) != visited.end()){            //Cycle detected
+                return true;
+            }
+            visited.insert(temp);           //Marking node as visited
+            temp = temp->next;
+        }
+        return false;
+    }
+    bool hasCycle(ListNode *head) {     //Detect cycle in a linked list using Floyd's Cycle-Finding Algorithm
+        if(head == NULL || head->next ==NULL ){
+            return false;
+        }
+        ListNode *slow = head;
+        ListNode *fast = head;
+        while(fast!=NULL && fast->next!=NULL){      //Moving slow by one and fast by two
+            slow = slow->next;
+            fast = fast->next->next;
+            if(slow == fast){       //Cycle detected
+                return true;
+            }
+        }       
+        return false;
+    }
+    ListNode *detectCycle(ListNode *head) {     //Detect the starting node of cycle in a linked list using hashing
+        ListNode* temp = head;
+        unordered_map<ListNode*, int> nodeMap;
+        while (temp != nullptr) {       
+            if (nodeMap.find(temp) != nodeMap.end()) {      //Cycle detected 
+                return temp;        //Starting node of cycle
+            }
+            nodeMap[temp] = 1;
+            temp = temp->next;
+        }
+        return NULL;
+    }
 int main(){
 }
