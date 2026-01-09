@@ -210,5 +210,37 @@ void deleteNode(ListNode* node) {       //To delete a node in a singly linked li
         }
         return true;
     }
+    ListNode* oddEvenList(ListNode* head) {     //Group all odd nodes together followed by the even nodes using position of nodes
+        if(head == NULL || head->next == NULL){
+            return head;
+        }
+        ListNode *odd = head;
+        ListNode *even = head->next;        
+        ListNode *evenhead = even;
+        while(even!=NULL && even->next!=NULL){      //Traversing odd and even nodes
+            odd->next = even->next;
+            odd = odd->next;
+            even->next = odd->next;
+            even = even->next;
+        }
+        odd->next = evenhead;
+        return head;
+    }
+    ListNode* oddEvenList(ListNode* head) {     //Group all odd nodes together followed by the even nodes using position of nodes but more concise
+        if(head == NULL || head->next == NULL){
+            return head;
+        }
+        ListNode *odd = head;
+        ListNode *even = head->next;
+        ListNode *evenhead = even;
+        while(odd!=NULL && odd->next!=NULL && even->next!=NULL){        //Traversing odd and even nodes
+            odd->next = odd->next->next;
+            odd = odd->next;
+            even->next = even->next->next;
+            even = even->next;
+        }
+        odd->next = evenhead;
+        return head;
+    }
 int main(){
 }
