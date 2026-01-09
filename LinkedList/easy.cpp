@@ -160,5 +160,55 @@ void deleteNode(ListNode* node) {       //To delete a node in a singly linked li
         }
         return 0;
     }
+    bool isPalindrome(ListNode* head) {     //Check if linked list is palindrome using stack
+        stack<int> st;
+        ListNode *temp = head;
+        while(temp!=NULL){
+            st.push(temp->val);
+            temp = temp->next;
+        }
+        temp =head;
+        while(temp!=NULL){
+            if(st.top() == temp->val){
+                temp = temp->next;
+                st.pop();
+            }
+            else{
+                return false;
+            }
+        }
+        return true;
+    }
+    bool isPalindrome(ListNode* head) {     //Check if linked list is palindrome without using extra space
+        if (head == NULL || head->next == NULL) {
+        return true;  
+        }
+        ListNode *slow = head;
+        ListNode *fast = head;
+        while(fast!=NULL && fast->next!=NULL){      //Finding middle using two pointer approach
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        ListNode *prev = NULL;
+        ListNode *temp = slow;
+        while(temp!=NULL){      //Reversing second half of linked list
+            ListNode *front = temp->next;
+            temp->next = prev;
+            prev = temp;
+            temp = front;
+        } 
+        ListNode *first = head;
+        ListNode *second = prev;
+        while(second!=NULL){        //Comparing first half and reversed second half
+            if(first->val == second->val){
+                first = first->next;
+                second = second->next;
+            }
+            else{
+                return false;
+            }
+        }
+        return true;
+    }
 int main(){
 }
