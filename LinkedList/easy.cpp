@@ -242,5 +242,66 @@ void deleteNode(ListNode* node) {       //To delete a node in a singly linked li
         odd->next = evenhead;
         return head;
     }
+    ListNode* removeNthFromEnd(ListNode* head, int n) {     //Remove Nth node from end of linked list by reversing the linked list
+        if(head== NULL){
+            return NULL;
+        }
+        ListNode *newhead = reverseLL(head);        //Reversing the linked list
+        ListNode *temp = newhead;
+        int count = 0;
+        ListNode *prev = NULL;
+        while(temp!=NULL){
+            count++;
+            if(count == n){
+                if(prev == NULL){
+                    newhead = temp->next;       //If head is to be removed
+                }
+                else{
+                    prev->next = temp->next;                //Bypassing the Nth node     
+                }
+                delete temp;
+                break;
+            }   
+            prev = temp;        //Storing previous node
+            temp = temp->next;      //Moving to next node
+        }
+        ListNode *finalhead = reverseLL(newhead);
+        return finalhead;
+    }
+    ListNode* reverseLL(ListNode* revhead){     //Function to reverse a linked list
+        ListNode *prev = NULL;
+        while(revhead!=NULL){
+            ListNode *front = revhead->next;
+            revhead->next = prev;
+            prev = revhead;
+            revhead = front;
+        }
+        return prev;
+    }
+    ListNode* removeNthFromEnd(ListNode* head, int n) {     //Remove Nth node from end of linked list using two pointer approach
+        if(head == NULL){
+            return NULL;
+        }
+        ListNode *fast = head;
+        for(int i=0;i<n;i++){       //Moving fast pointer n steps ahead
+            fast = fast->next;
+        }
+        if (fast == NULL) {     // If we need to remove the head node
+            ListNode* del = head;
+            head = head->next;
+            delete del;
+            return head;
+        }
+
+        ListNode *slow = head;
+        while(fast->next!=NULL){        //Moving both pointers until fast reaches the end
+            slow = slow->next;
+            fast = fast->next;
+        }
+        ListNode *delnode = slow->next;     //Node to be deleted
+        slow->next = slow->next->next;      //Bypassing the Nth node from end
+        delete delnode;
+        return head;
+    }
 int main(){
 }
