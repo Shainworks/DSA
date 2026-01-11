@@ -303,5 +303,78 @@ void deleteNode(ListNode* node) {       //To delete a node in a singly linked li
         delete delnode;
         return head;
     }
+    ListNode* deleteMiddle(ListNode* head) {
+        if(head == NULL || head->next==NULL){
+            return NULL;
+        }
+        ListNode *slow = head;
+        ListNode *fast = head;
+        while(fast!=NULL && fast->next!=NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        ListNode *prev = NULL;
+        ListNode *temp = head;
+        while(temp!=NULL){
+            if(temp == slow){
+                if(prev == NULL){
+                    temp->next = NULL;
+                    delete temp->next;
+                }
+                else{
+                    prev->next = temp->next;
+                }
+                delete temp;
+                break;
+            }
+            prev = temp;
+            temp = temp->next;
+        }
+        return head;
+    }
+    ListNode* deleteMiddle(ListNode* head) {        //Delete middle node of linked list using two pointer approach
+        if(head == NULL || head->next==NULL){
+            return NULL;
+        }
+        ListNode *slow = head;
+        ListNode *fast = head;
+        while(fast!=NULL && fast->next!=NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        ListNode *prev = NULL;
+        ListNode *temp = head;
+        while(temp!=NULL){
+            if(temp == slow){
+                if(prev == NULL){       //If head is to be deleted
+                    temp->next = NULL;
+                    delete temp->next;
+                }
+                else{
+                    prev->next = temp->next;        //Bypassing the middle node
+                }
+                delete temp;
+                break;
+            }
+            prev = temp;
+            temp = temp->next;
+        }
+        return head;
+    }
+    ListNode* deleteMiddle(ListNode* head) {        //Delete middle node of linked list using optimized two pointer approach
+        if(head == NULL || head->next==NULL){
+            return NULL;
+        }
+        ListNode *slow = head;
+        ListNode *fast = head->next->next;      //Fast pointer starts two steps ahead because we need slow to point to the node before middle so that we can bypass middle
+        while(fast!=NULL && fast->next!=NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        ListNode *midnode = slow->next;     //Middle node to be deleted
+        slow->next = slow->next->next;      //Bypassing the middle node
+        delete midnode;
+        return head;
+    }
 int main(){
 }
