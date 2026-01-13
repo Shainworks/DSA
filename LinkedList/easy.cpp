@@ -473,5 +473,65 @@ void deleteNode(ListNode* node) {       //To delete a node in a singly linked li
         // Return head of merged list
         return dummyNode->next;
     }
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {       //Find intersection point of two linked lists using hashing
+        unordered_set<ListNode*> visited;
+        ListNode *tempA = headA;
+        while(tempA!= NULL){        //Traversing first linked list
+            visited.insert(tempA);
+            tempA = tempA->next;
+        }
+        ListNode *tempB = headB;
+        while(tempB!=NULL){     //Traversing second linked list
+            if(visited.find(tempB)!=visited.end()){     //Intersection point found
+                return tempB;
+            }
+            visited.insert(tempB);
+            tempB = tempB->next;
+        }
+        return NULL;
+    }
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+         int len1 = 0, len2 = 0;
+        ListNode *tempA = headA;
+        ListNode *tempB = headB;
+        while (tempA != NULL || tempB != NULL) {        //Counting Both in a Single iteration loop
+        if (tempA != NULL) {
+            ++len1;
+            tempA = tempA->next;
+        }
+        if (tempB != NULL) {
+            ++len2;
+            tempB = tempB->next;
+        }
+        }
+        int pdiff = max(len1,len2) - min(len1,len2);        //Calculating difference in lengths
+        if(len1>len2){      //If first linked list is longer
+            ListNode *dummytemp = headA;       
+            for(int i=1;i<=pdiff;i++){
+                dummytemp = dummytemp->next;     //Moving pointer of longer list ahead by pdiff
+            }
+            while(headB!=NULL){
+                if(headB == dummytemp){     //Intersection point found
+                    return dummytemp;
+                }
+                headB = headB->next;
+                dummytemp = dummytemp->next;
+            }
+        }
+        else{
+            ListNode *dummytemp = headB;        //If second linked list is longer
+            for(int i=1;i<=pdiff;i++){
+                dummytemp = dummytemp->next;    //Moving pointer of longer list ahead by pdiff
+            }
+            while(headA!=NULL){
+                if(headA == dummytemp){
+                    return dummytemp;
+                }
+                headA = headA->next;
+                dummytemp = dummytemp->next;
+            }
+        }
+        return NULL;
+    }
 int main(){
 }
