@@ -572,5 +572,32 @@ void deleteNode(ListNode* node) {       //To delete a node in a singly linked li
         return zeroDummy->next;
 
     }
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {       //Add two numbers represented by linked lists
+        ListNode *t1 = l1;
+        ListNode *t2 = l2;
+        ListNode *dummyNode = new ListNode(-1);
+        ListNode *curr = dummyNode;
+        int carry = 0;
+        while(t1!=NULL || t2!=NULL){        //Traverse both lists
+            int sum = carry;        //Start with carry and add them if they exist
+            if(t1){
+                sum = sum+t1->val;      //Add value from first list
+                t1 = t1->next;
+            }
+            if(t2){
+                sum = sum+t2->val;      //Add value from second list
+                t2 = t2->next;
+            }
+            ListNode *newNode = new ListNode(sum%10);       //Create new node with digit value
+            carry = sum/10;     //Calculate carry for next iteration
+            curr->next = newNode;
+            curr = newNode;
+        }
+        if(carry){      //If carry is remaining after processing both lists
+            ListNode *newNode = new ListNode(carry);
+            curr->next = newNode;
+        }
+        return dummyNode->next;
+    }
 int main(){
 }
