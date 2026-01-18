@@ -599,5 +599,37 @@ void deleteNode(ListNode* node) {       //To delete a node in a singly linked li
         }
         return dummyNode->next;
     }
+    Node* addOne(Node* head) {
+        // Your Code here
+        Node *temp = reverse(head);
+        Node *dummyNode = new Node(-1);
+        Node *curr = dummyNode;
+        int carry = 1;
+        while(temp!=NULL){
+         int sum = carry;
+         sum = sum + temp->data;
+         Node *newNode = new Node(sum%10);
+         carry = sum/10;
+         curr->next = newNode;
+         curr = curr->next;
+         temp = temp->next;
+        }
+        if(carry){
+            Node *newNode = new Node(carry);
+            curr->next = newNode;
+        }
+        return reverse(dummyNode->next);
+    }
+    Node* reverse(Node* revhead){
+        Node *temp = revhead;
+        Node *prev = NULL;
+        while(temp!=NULL){
+            Node *front = temp->next;
+            temp->next = prev;
+            prev = temp;
+            temp = front;
+        }
+        return prev;
+    }
 int main(){
 }
