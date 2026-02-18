@@ -35,3 +35,23 @@ long long power(long long x,long long y){       //Calculate x raised to the powe
          if(n<0) ans = (double)(1.0)/(double)(ans);     //If n is negative, take reciprocal of ans
          return ans;
     }
+    void sortStack(stack<int> &st) {        //Sort a stack using recursion
+        // code here
+        if(st.empty()){     //Base case
+            return;
+        }
+        int temp = st.top();
+        st.pop();
+        sortStack(st);      //Sort remaining stack
+        sort(st,temp);      //Insert temp in sorted stack
+    }
+    void sort(stack<int> &st,int temp){
+        if(st.empty() || st.top()<=temp){       //Base case: If stack is empty or top element is less than or equal to temp, push temp to stack
+            st.push(temp);
+            return;
+        }
+        int top = st.top();     //Store top element
+        st.pop();
+        sort(st,temp);      //Recursive call to sort remaining stack
+        st.push(top);       //Push top element back to stack
+    }
