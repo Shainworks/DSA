@@ -73,3 +73,31 @@ long long power(long long x,long long y){       //Calculate x raised to the powe
         bottom(st,temp);
         st.push(top);
     }
+    vector<string> binstr(int n) {      //Generate all binary strings of length n using recursion
+        // code here
+        vector<string> ans = {};
+        helper(n,"",ans);
+        return ans;
+    }
+    void helper(int n, string curr, vector<string> &ans){       //Helper function to generate binary strings of length n by appending '0' and '1' to current string until length of current string is equal to n
+        if(curr.length()==n){
+            ans.push_back(curr);
+            return;
+        }
+        helper(n,curr+'0',ans);     //Recursive call to append '0' to current string
+        helper(n,curr+'1',ans);     //Recursive call to append '1' to current string
+    }
+    void helper(int n, string cur, vector<string> &ans) {       // Base case: If current string length is equal to n, add it to answer and return
+        if (cur.length() == n) {
+            ans.push_back(cur);
+            return;
+        }
+
+        // Always allowed
+        helper(n, cur + '0', ans);
+
+        // Only if last char is NOT '1'
+        if (cur.empty() || cur.back() != '1') {
+            helper(n, cur + '1', ans);
+        }
+    }
