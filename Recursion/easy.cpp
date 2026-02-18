@@ -45,7 +45,7 @@ long long power(long long x,long long y){       //Calculate x raised to the powe
         sortStack(st);      //Sort remaining stack
         sort(st,temp);      //Insert temp in sorted stack
     }
-    void sort(stack<int> &st,int temp){
+    void sort(stack<int> &st,int temp){     //Helper function to insert an element in sorted order in a stack
         if(st.empty() || st.top()<=temp){       //Base case: If stack is empty or top element is less than or equal to temp, push temp to stack
             st.push(temp);
             return;
@@ -54,4 +54,22 @@ long long power(long long x,long long y){       //Calculate x raised to the powe
         st.pop();
         sort(st,temp);      //Recursive call to sort remaining stack
         st.push(top);       //Push top element back to stack
+    }
+    void reverseStack(stack<int> &st) {     //Reverse a stack using recursion
+        // code here
+        if(st.empty()) return;      //Base case: If stack is empty, return
+        int temp = st.top();
+        st.pop();
+        reverseStack(st);
+        bottom(st,temp);
+    }
+    void bottom(stack<int> &st,int temp){       //Helper function to insert an element at the bottom of a stack
+        if(st.empty()){     //Base case: If stack is empty, push temp to stack
+            st.push(temp);
+            return;
+        }
+        int top = st.top();     
+        st.pop();
+        bottom(st,temp);
+        st.push(top);
     }
