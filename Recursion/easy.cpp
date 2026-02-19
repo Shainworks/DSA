@@ -101,3 +101,19 @@ long long power(long long x,long long y){       //Calculate x raised to the powe
             helper(n, cur + '1', ans);
         }
     }
+    class Solution {
+public:
+    void helper(int n,string cur,vector<string> &ans,int open,int close){       //  Base case: If current string length is equal to 2*n, add it to answer and return. If number of open parentheses is less than n, add an open parenthesis and make a recursive call. If number of close parentheses is less than number of open parentheses, add a close parenthesis and make a recursive call.
+        if(cur.length()==2*n){
+            ans.push_back(cur);
+            return;
+        }
+        if(open<n) helper(n,cur+'(',ans,open+1,close);      //If number of open parentheses is less than n, add an open parenthesis and make a recursive call
+        if(close<open) helper(n,cur+')',ans,open,close+1);      //If number of close parentheses is less than number of open parentheses, add a close parenthesis and make a recursive call
+    }
+    vector<string> generateParenthesis(int n) {     // Generate all combinations of well-formed parentheses of length 2*n using recursion by keeping track of the number of open and close parentheses used so far and ensuring that at any point, the number of close parentheses does not exceed the number of open parentheses
+        vector<string> ans;
+        helper(n,"",ans,0,0);
+        return ans;
+    }
+};
