@@ -101,8 +101,7 @@ long long power(long long x,long long y){       //Calculate x raised to the powe
             helper(n, cur + '1', ans);
         }
     }
-    class Solution {
-public:
+
     void helper(int n,string cur,vector<string> &ans,int open,int close){       //  Base case: If current string length is equal to 2*n, add it to answer and return. If number of open parentheses is less than n, add an open parenthesis and make a recursive call. If number of close parentheses is less than number of open parentheses, add a close parenthesis and make a recursive call.
         if(cur.length()==2*n){
             ans.push_back(cur);
@@ -116,4 +115,21 @@ public:
         helper(n,"",ans,0,0);
         return ans;
     }
-};
+        int countSubsequenceWithTargetSum(vector<int>& nums, int k){        //Count the number of subsequences in an array that sum up to a target value k using recursion by keeping track of the current index, the current sum of the subsequence, and the count of valid subsequences found so far. At each step, we have two choices: include the current element in the subsequence or exclude it. We recursively explore both possibilities until we reach the end of the array, at which point we check if the current sum equals k and update our count accordingly.
+        int cnt = 0;
+        vector<int> arr = {};
+        helper(0,arr,0,k,nums,cnt);
+        return cnt;
+    }
+    void helper(int ind,vector<int> &arr,int sum,int k,vector<int> &nums, int &cnt){
+        if(ind==nums.size()){       //Base case: If we have reached the end of the array, check if the current sum equals k and update count accordingly
+         if(sum==k){
+            cnt++;
+        }
+        return;
+        }
+        arr.push_back(nums[ind]);
+        helper(ind+1,arr,sum+nums[ind],k,nums,cnt);     //Recursive call to include the current element in the subsequence and update the sum
+        arr.pop_back();
+        helper(ind+1,arr,sum,k,nums,cnt);       //Recursive call to exclude the current element from the subsequence and keep the sum unchanged
+    }
