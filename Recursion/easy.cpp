@@ -133,3 +133,27 @@ long long power(long long x,long long y){       //Calculate x raised to the powe
         arr.pop_back();
         helper(ind+1,arr,sum,k,nums,cnt);       //Recursive call to exclude the current element from the subsequence and keep the sum unchanged
     }
+    void helper(int ind, vector<int> &arr, int sum, int k,  
+                vector<int> &nums) {
+
+        if (ind == nums.size()) {       // Base case: If we have reached the end of the array, check if the current sum equals k and print the subsequence if it does
+            if (sum == k) {
+                for (int x : arr) cout << x << " ";
+                cout << endl;
+            }
+            return;
+        }
+
+        // take
+        arr.push_back(nums[ind]);
+        helper(ind + 1, arr, sum + nums[ind], k, nums);
+        arr.pop_back();
+
+        // not take
+        helper(ind + 1, arr, sum, k, nums);
+    }
+
+    void printSubsequenceWithTargetSum(vector<int>& nums, int k){       //Print all subsequences in an array that sum up to a target value k using recursion by keeping track of the current index, the current sum of the subsequence, and the current subsequence being formed. At each step, we have two choices: include the current element in the subsequence or exclude it. We recursively explore both possibilities until we reach the end of the array, at which point we check if the current sum equals k and print the subsequence if it does.
+        vector<int> arr;
+        helper(0, arr, 0, k, nums);
+    }
