@@ -193,3 +193,18 @@ long long power(long long x,long long y){       //Calculate x raised to the powe
         arr.pop_back();
         helper(ind+1,nums,ans,arr);
     }
+        vector<vector<int>> subsetsWithDup(vector<int>& nums) {     //Generate all possible subsets of an array that may contain duplicates using recursion by first sorting the array to ensure that duplicate elements are adjacent. Then, we keep track of the current index and the current subset being formed. At each step, we have two choices: include the current element in the subset or exclude it. We recursively explore both possibilities until we reach the end of the array, at which point we add the current subset to our answer list. To avoid generating duplicate subsets, we skip over duplicate elements in the recursive calls when we encounter them.
+        vector<vector<int>> ans = {};
+        sort(nums.begin(), nums.end());
+        helper(0,nums,ans,{});
+        return ans;
+    }
+    void helper(int ind, vector<int> nums,vector<vector<int>> &ans,vector<int> arr){
+        ans.push_back(arr);
+        for(int i=ind;i<nums.size();i++){   //Iterate through the array starting from the current index
+        if(i!=ind && nums[i]==nums[i-1]) continue;      //If the current element is the same as the previous element and it's not the first element in the loop, skip it to avoid generating duplicate subsets
+        arr.push_back(nums[i]);
+        helper(i+1,nums,ans,arr);
+        arr.pop_back();
+        }
+    }
