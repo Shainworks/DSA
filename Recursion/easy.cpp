@@ -157,3 +157,24 @@ long long power(long long x,long long y){       //Calculate x raised to the powe
         vector<int> arr;
         helper(0, arr, 0, k, nums);
     }
+    bool checkSubsequenceSum(int n, vector<int>& arr, int k) {      //Check if there exists a subsequence in an array that sums up to a target value k using recursion by keeping track of the current index, the current sum of the subsequence, and a flag to indicate whether a valid subsequence has been found. At each step, we have two choices: include the current element in the subsequence or exclude it. We recursively explore both possibilities until we reach the end of the array or find a valid subsequence, at which point we return the result.
+        // Code here
+        vector<int> ans = {};       //Vector to store the current subsequence being formed
+        bool flag = false;
+        helper(0,n,ans,arr,k,flag,0);       //Recursive call to explore both possibilities of including or excluding the current element in the subsequence and updating the sum accordingly, while also checking if a valid subsequence has been found
+        return flag;
+    }
+    bool helper(int ind,int &n,vector<int> &ans,vector<int> &arr,int k,bool &flag,int sum){
+        if(sum==k){
+            return flag = true;     //If the current sum equals k, set the flag to true and return
+            }
+        if(n==ind || sum>k){        //Base case: If we have reached the end of the array or the current sum exceeds k, return false
+            return false;
+        }
+        if(!flag){
+            ans.push_back(arr[ind]);
+            helper(ind+1,n,ans,arr,k,flag,sum+arr[ind]);
+            ans.pop_back();
+            helper(ind+1,n,ans,arr,k,flag,sum);
+        }
+    }
