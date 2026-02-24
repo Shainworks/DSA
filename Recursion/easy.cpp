@@ -178,3 +178,18 @@ long long power(long long x,long long y){       //Calculate x raised to the powe
             helper(ind+1,n,ans,arr,k,flag,sum);
         }
     }
+    vector<vector<int>> subsets(vector<int>& nums) {        //Generate all possible subsets of an array using recursion by keeping track of the current index and the current subset being formed. At each step, we have two choices: include the current element in the subset or exclude it. We recursively explore both possibilities until we reach the end of the array, at which point we add the current subset to our answer list.
+        vector<vector<int>> ans = {};
+        helper(0,nums,ans,{});
+        return ans;
+    }
+    void helper(int ind, vector<int> nums,vector<vector<int>> &ans,vector<int> arr){
+        if(ind==nums.size()){
+            ans.push_back(arr);
+            return;
+        }
+        arr.push_back(nums[ind]);
+        helper(ind+1,nums,ans,arr);
+        arr.pop_back();
+        helper(ind+1,nums,ans,arr);
+    }
